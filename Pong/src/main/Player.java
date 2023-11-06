@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Player {
-	private int posicaoX, posicaoY;
-	private final int width = 40, height = 5;
+	public int posicaoX, posicaoY;
+	public final int width = 40, height = 5;
 	
 	//Movimentação
 	private boolean left, right;

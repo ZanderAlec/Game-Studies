@@ -17,9 +17,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Player player1;
-	Player enemy;
-	Ball ball;
+	static Player player1;
+	static Player enemy;
+	static Ball ball;
+	static Colisoes colisoes;
+	
 	
 	final public static int width = 160;
 	final public static int height = 120;
@@ -41,8 +43,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		this.addKeyListener(this);
 		
 		this.player1 = new Player(0,0);
-		this.enemy = new Player(0, height - 5);
+		this.enemy = new Player(width - 5, height - 5);
 		this.ball = new Ball();
+		this.colisoes = new Colisoes();
 	
 	}		
 	
@@ -69,6 +72,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		
 		this.player1.tick();
 		this.enemy.tick();
+		this.ball.tick();
+		this.colisoes.tick();
 	}
 	
 	//Gráficos------------------------------------
