@@ -16,7 +16,7 @@ public class Colisoes {
 	}
 	
 	
-	public void tick() {
+	public static void tick() {
 		boundBall = new Rectangle((int)Game.ball.x, (int)Game.ball.y, Game.ball.width, Game.ball.height);
 		boundPlayer = new Rectangle(Game.player1.posicaoX, Game.player1.posicaoY, Game.player1.width, Game.player1.height);
 		boundEnemy = new Rectangle(Game.enemy.posicaoX, Game.enemy.posicaoY, Game.enemy.width, Game.enemy.height);

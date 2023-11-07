@@ -17,10 +17,10 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	static Player player1;
-	static Player enemy;
-	static Ball ball;
-	static Colisoes colisoes;
+	public static Player player1;
+	public static Player enemy;
+	public static Ball ball;
+	public static Colisoes colisoes;
 	
 	
 	final public static int width = 160;
@@ -88,12 +88,14 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		
 		
 		Graphics g = layer.getGraphics();
-		g.setColor(Color.black);
-		g.fillRect(0, 0, width, height);
-		
+	
+		Background.render(g);
 		this.player1.render(g);
 		this.enemy.render(g);
 		this.ball.render(g);
+		Score.render(g);
+		
+	
 		
 		g = bs.getDrawGraphics();
 		g.drawImage(layer, 0 ,0, width*this.scale, height*this.scale, null);

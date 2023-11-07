@@ -50,13 +50,18 @@ public class Ball {
 		
 		
 		//Score
-		if(y > Game.height || y  < 0) {
+		if(y > Game.height ) {
+			Score.incrementPlayerScore();
+			reseteBall();
+			return;
+		}else if(y  < 0) {
+			Score.incrementEnemyScore();
 			reseteBall();
 			return;
 		}
 		
 		//Jogadores jogadores
-		if(Game.colisoes.boundBall.intersects(Game.colisoes.boundPlayer)) {
+		if(Colisoes.boundBall.intersects(Colisoes.boundPlayer)) {
 			this.calcAngle();
 			
 			if(this.dy < 0)
@@ -71,11 +76,8 @@ public class Ball {
 				this.dy *= -1;
 			
 			this.incrementSpeed();
-
 		}
-		
-		System.out.println("dx: "+this.dx+"\ndy: "+this.dy);
-		
+				
 	
 		//Move a bolinha:
 		this.x += this.speed * this.dx;
