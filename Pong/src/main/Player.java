@@ -26,6 +26,8 @@ public class Player {
 		}else if(left) {
 			this.posicaoX--;
 		}
+		
+		posicaoX+= (Game.ball.x - posicaoX - 6) * 0.04;
 			
 		//Colisão:
 		if(this.posicaoX > Game.width - this.width)

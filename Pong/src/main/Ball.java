@@ -2,53 +2,91 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 public class Ball {
-	public static int x,y;
+	public static double x,y;
 	public final int width = 5, height = 5;
 	
-	private int speed, dir;
+	private double speed;
+	public double dx, dy;
 	
 	Ball(){
+		this.reseteBall();
+		this.calcAngle();
+	}
+	
+	
+	//Direção e angulo da bolinha
+	public void calcAngle() {
+		int angle = new Random().nextInt(120 - 45) + 45 + 1;
+		this.dx = Math.cos(Math.toRadians(angle));
+		this.dy =  Math.sin(Math.toRadians(angle));
+	}
+	
+	
+	private void reseteBall() {
+		this.speed = 1.4;
+		
 		this.x = Game.width/2;
 		this.y = Game.height/2;
-		this.speed = 1;
-		this.dir = this.calcDirInicio();
+		
+		this.calcAngle();
 	}
 	
-	//Direção inicial da bolinha
-	public int calcDirInicio() {
-		Random random = new Random();
-		int num = random.nextInt(50);
-		
-		if(num <= 25)
-			return this.dir = -1;
-			
-		
-		return this.dir = 1;
+	private void incrementSpeed() {
+		this.speed += 0.2;
 	}
 	
+	//Lógica
 	public void tick(){
-
 		
-		//Colisão:
-		if(Game.colisoes.boundBall.intersects(Game.colisoes.boundPlayer)) {
-			dir *= -1;
-			
-		}else if(Game.colisoes.boundBall.intersects(Game.colisoes.boundEnemy)) {
-			dir *= -1;
+		
+		//Colisão parede:
+		if(this.x + (this.dx*this.speed) < 0 || this.x + this.width + (this.dx * this.speed) >= Game.width) {
+			dx*= -1;
 		}
 		
+		
+		//Score
+		if(y > Game.height || y  < 0) {
+			reseteBall();
+			return;
+		}
+		
+		//Jogadores jogadores
+		if(Game.colisoes.boundBall.intersects(Game.colisoes.boundPlayer)) {
+			this.calcAngle();
+			
+			if(this.dy < 0)
+				this.dy *= -1;
+			
+			this.incrementSpeed();
+			
+		}else if(Game.colisoes.boundBall.intersects(Game.colisoes.boundEnemy)) {
+			this.calcAngle();
+			
+			if(this.dy > 0)
+				this.dy *= -1;
+			
+			this.incrementSpeed();
+
+		}
+		
+		System.out.println("dx: "+this.dx+"\ndy: "+this.dy);
+		
+	
 		//Move a bolinha:
-		this.x += speed * dir;
-		this.y += speed * dir;
+		this.x += this.speed * this.dx;
+		this.y += this.speed * this.dy;
 				
 	}
 	
 	
+	//Gráficos
 	public void render(Graphics g) {
 		g.setColor(Color.yellow);
-		g.fillOval(x, y, width, height);
+		g.fillOval((int)x, (int)y, width, height);
 	}
 }

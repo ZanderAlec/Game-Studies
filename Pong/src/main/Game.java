@@ -43,7 +43,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		this.addKeyListener(this);
 		
 		this.player1 = new Player(0,0);
-		this.enemy = new Player(width - 5, height - 5);
+		this.enemy = new Player(width/2 - 10, height - 5);
 		this.ball = new Ball();
 		this.colisoes = new Colisoes();
 	
